@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import PROFILE from './lib/data';
 import SkillsGrid from './components/SkillGrid';
@@ -6,9 +6,19 @@ import TestimonialsTab from './components/tabs/TestimonialsTab';
 import ProjectsTab from './components/tabs/ProjectsTab';
 import HomeTab from './components/tabs/HomeTab';
 import TabSwitchButtons from './components/buttons/TabSwitchButtons';
+import ResumeButton from './components/buttons/ResumeButton';
 
 export default function PortfolioApp() {
   const [tab, setTab] = useState<'home' | 'projects' | 'testimonials'>('home');
+
+  const contentRef = useRef<HTMLDivElement | null>(null);
+
+  const scrollToProjects = () => {
+    setTab('projects');
+    if (contentRef.current) {
+      contentRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   return (
     <div className="min-h-screen bg-linear-to-b from-gray-900 via-gray-950 to-black text-gray-100 p-6">
@@ -22,7 +32,7 @@ export default function PortfolioApp() {
         >
           <div className="flex flex-col items-center text-center">
             <div className="w-36 h-36 rounded-full overflow-hidden ring-2 ring-white/10 mb-4">
-              <img src={PROFILE.photo} alt="Profile" className="object-cover w-full h-full" />
+              <img src={PROFILE.photo} alt="Profile" loading='lazy' className="object-cover w-full h-full" />
             </div>
             <h1 className="text-2xl font-semibold">{PROFILE.name}</h1>
             <p className="text-sm text-gray-300 mt-1">{PROFILE.title}</p>
@@ -41,15 +51,9 @@ export default function PortfolioApp() {
               <p className="text-xs text-gray-300 mt-1">{PROFILE.email} • {PROFILE.phone}</p>
 
               <div className="mt-4 flex gap-3">
-                <a
-                  href={PROFILE.resume}
-                  download
-                  className="px-4 py-2 rounded-md bg-indigo-600 hover:bg-indigo-500 shadow-md text-white text-sm"
-                >
-                  Download Resume
-                </a>
+                <ResumeButton resume={PROFILE.resume} />
                 <button
-                  onClick={() => setTab('projects')}
+                  onClick={scrollToProjects}
                   className="px-4 py-2 rounded-md border border-white/10 text-sm"
                 >
                   View Projects
@@ -69,6 +73,7 @@ export default function PortfolioApp() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
+          ref={contentRef}
           className="lg:col-span-2 bg-white/3 p-6 rounded-2xl shadow-2xl border border-white/6 backdrop-blur"
         >
           {/* Tabs */}

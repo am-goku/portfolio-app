@@ -18,7 +18,6 @@ const PROFILE: Profile = {
     github: 'https://github.com/am-goku',
     linkedin: 'https://www.linkedin.com/in/am-goku',
     website: 'https://itsmegokul.site/',
-    // Replace this path with your real photo path (public/profile.png)
     photo: '/image/profile.png',
     resume: '/resume/Gokul_Krishna_G_H__Resume.pdf' // drop the uploaded PDF into your public/static folder
 };
