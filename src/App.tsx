@@ -7,6 +7,7 @@ import ProjectsTab from './components/tabs/ProjectsTab';
 import HomeTab from './components/tabs/HomeTab';
 import TabSwitchButtons from './components/buttons/TabSwitchButtons';
 import ResumeButton from './components/buttons/ResumeButton';
+import Socials from './components/Socials';
 
 export default function PortfolioApp() {
   const [tab, setTab] = useState<'home' | 'projects' | 'testimonials'>('home');
@@ -37,14 +38,7 @@ export default function PortfolioApp() {
             <h1 className="text-2xl font-semibold">{PROFILE.name}</h1>
             <p className="text-sm text-gray-300 mt-1">{PROFILE.title}</p>
 
-            <div className="mt-4 flex gap-3">
-              <a href={PROFILE.github} target="_blank" rel="noreferrer" className="text-sm underline">
-                GitHub
-              </a>
-              <a href={PROFILE.linkedin} target="_blank" rel="noreferrer" className="text-sm underline">
-                LinkedIn
-              </a>
-            </div>
+            <Socials />
 
             <div className="mt-6 w-full text-left">
               <h3 className="text-sm text-gray-200 font-medium">Contact</h3>
