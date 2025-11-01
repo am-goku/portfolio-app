@@ -25,7 +25,7 @@ export default function ProjectCard({ project }: { project: Project }) {
     <motion.article
       whileHover={!isTouch ? { scale: 1.03 } : {}}
       transition={{ type: 'spring', stiffness: 200, damping: 15 }}
-      className="group relative rounded-xl overflow-hidden shadow-lg border border-white/10 bg-gradient-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-md hover:shadow-2xl hover:border-indigo-500/40 transition-all duration-300 flex flex-col"
+      className="group relative rounded-xl overflow-hidden shadow-lg border border-white/10 bg-linear-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-md hover:shadow-2xl hover:border-indigo-500/40 transition-all duration-300 flex flex-col"
       onClick={handleToggleOverlay}
     >
       {/* Thumbnail */}
@@ -65,7 +65,7 @@ export default function ProjectCard({ project }: { project: Project }) {
           </span>
         </div>
 
-        <p className="text-sm text-gray-300 mt-3 leading-relaxed flex-grow">
+        <p className="text-sm text-gray-300 mt-3 leading-relaxed grow">
           {project.description}
         </p>
 
