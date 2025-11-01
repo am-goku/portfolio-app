@@ -8,9 +8,10 @@ import HomeTab from './components/tabs/HomeTab';
 import TabSwitchButtons from './components/buttons/TabSwitchButtons';
 import ResumeButton from './components/buttons/ResumeButton';
 import Socials from './components/Socials';
+import ContactForm from './components/tabs/ContactForm';
 
 export default function PortfolioApp() {
-  const [tab, setTab] = useState<'home' | 'projects' | 'testimonials'>('home');
+  const [tab, setTab] = useState<'home' | 'projects' | 'testimonials' | 'contact'>('home');
 
   const contentRef = useRef<HTMLDivElement | null>(null);
 
@@ -83,6 +84,8 @@ export default function PortfolioApp() {
           {tab === 'projects' && <ProjectsTab />}
 
           {tab === 'testimonials' && <TestimonialsTab />}
+
+          {tab === 'contact' && <ContactForm />}
         </motion.main>
       </div>
 

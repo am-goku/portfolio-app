@@ -1,8 +1,8 @@
 import type React from "react";
 
 type Props = {
-    setTab: React.Dispatch<React.SetStateAction<'home' | 'projects' | 'testimonials'>>;
-    tab: 'home' | 'projects' | 'testimonials';
+    setTab: React.Dispatch<React.SetStateAction<'home' | 'projects' | 'testimonials' | 'contact'>>;
+    tab: 'home' | 'projects' | 'testimonials' | 'contact';
 }
 
 function TabSwitchButtons({ setTab, tab }: Props) {
@@ -26,6 +26,12 @@ function TabSwitchButtons({ setTab, tab }: Props) {
             >
                 Testimonials
             </button> */}
+            <button
+                onClick={() => setTab('contact')}
+                className={`px-4 py-2 rounded-full text-sm ${tab === 'contact' ? 'bg-indigo-600' : 'bg-white/5'}`}
+            >
+                Contact
+            </button>
         </div>
     )
 }
