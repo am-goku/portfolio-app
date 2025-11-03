@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import PROFILE from './lib/data';
 import SkillsGrid from './components/SkillGrid';
@@ -9,8 +9,12 @@ import TabSwitchButtons from './components/buttons/TabSwitchButtons';
 import ResumeButton from './components/buttons/ResumeButton';
 import Socials from './components/Socials';
 import ContactForm from './components/tabs/ContactForm';
+import { getViews, increaseViews } from './lib/service/counter-api';
+import { FiEye } from 'react-icons/fi';
 
 export default function PortfolioApp() {
+  const [viewers, setViewers] = useState<number | null>(null);
+
   const [tab, setTab] = useState<'home' | 'projects' | 'testimonials' | 'contact'>('home');
 
   const contentRef = useRef<HTMLDivElement | null>(null);
@@ -22,8 +26,25 @@ export default function PortfolioApp() {
     }
   };
 
+  useEffect(() => {
+    getViews().then(res => setViewers(res)).catch(() => setViewers(0));
+    console.log(viewers)
+  }, [viewers]);
+
+  //Updating views
+  useEffect(() => {
+    increaseViews().then(res => {
+      setViewers(prev => {
+        if (prev) {
+          if (res > prev) return res;
+          else return prev;
+        } else return res;
+      })
+    }).catch(() => setViewers(0));
+  }, [])
+
   return (
-    <div className="min-h-screen bg-linear-to-b from-gray-900 via-gray-950 to-black text-gray-100 p-6">
+    <div className="min-h-screen relative bg-linear-to-b from-gray-900 via-gray-950 to-black text-gray-100 p-6">
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Left column: profile card */}
         <motion.aside
@@ -90,6 +111,12 @@ export default function PortfolioApp() {
       </div>
 
       <footer className="max-w-6xl mx-auto mt-10 text-center text-xs text-gray-500">© {new Date().getFullYear()} {PROFILE.name}</footer>
+      {viewers ? (
+        <p className='absolute bottom-4 left-4 text-xs text-gray-500 flex justify-center items-center gap-1'>
+          <FiEye />
+          {viewers}
+        </p>
+      ) : null}
     </div>
   );
 }
