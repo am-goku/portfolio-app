@@ -28,7 +28,6 @@ export default function PortfolioApp() {
 
   useEffect(() => {
     getViews().then(res => setViewers(res)).catch(() => setViewers(0));
-    console.log(viewers)
   }, [viewers]);
 
   //Updating views

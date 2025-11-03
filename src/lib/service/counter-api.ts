@@ -5,7 +5,6 @@ export async function getViews(): Promise<number> {
     if (res.ok) {
         return (await res.json()).data.up_count || 0;
     } else {
-        console.log("Error from counter::", res.json());
         return 0;
     }
 }
@@ -15,7 +14,6 @@ export async function increaseViews() {
     if (res.ok) {
         return (await res.json()).data.up_count || 0;
     } else {
-        console.log("Error from counter::", await res.json());
         return 0;
     }
 }
