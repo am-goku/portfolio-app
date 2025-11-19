@@ -48,37 +48,81 @@ export default function ContactForm() {
     };
 
     return (
-        <form onSubmit={handleSubmit} className='space-y-4 md:p-6'>
+        <form
+            onSubmit={handleSubmit}
+            className="space-y-6 md:p-8 p-2
+            md:backdrop-blur-2xl md:bg-white/5
+               rounded-2xl 
+               animate__animated animate__fadeIn"
+        >
 
-            <h2 className="text-xl font-semibold text-gray-100 mb-2">Get in Touch</h2>
+            <h2 className="text-2xl font-bold text-white mb-4 tracking-wide select-none">
+                Get in Touch
+            </h2>
 
             {/* Name */}
-            <NameField name={form.name} handleChange={handleChange} error={errors.name} />
+            <div className="transform transition-all duration-300 hover:scale-[1.01]">
+                <NameField
+                    name={form.name}
+                    handleChange={handleChange}
+                    error={errors.name}
+                />
+            </div>
 
             {/* Email + Phone */}
-            <section className="flex flex-col md:flex-row gap-5">
-                <EmailFields email={form.email} handleChange={handleChange} error={errors.email} />
-
-                <PhoneField phone={form.phone} handlePhoneChange={handlePhoneChange} error={errors.phone} />
+            <section className="flex flex-col md:flex-row gap-6">
+                <div className="flex-1 transform transition-all duration-300 hover:scale-[1.01]">
+                    <EmailFields
+                        email={form.email}
+                        handleChange={handleChange}
+                        error={errors.email}
+                    />
+                </div>
+                <div className="flex-1 transform transition-all duration-300 hover:scale-[1.01]">
+                    <PhoneField
+                        phone={form.phone}
+                        handlePhoneChange={handlePhoneChange}
+                        error={errors.phone}
+                    />
+                </div>
             </section>
 
             {/* Message */}
-            <MessageFields message={form.message} handleChange={handleChange} error={errors.message} />
+            <div className="transform transition-all duration-300 hover:scale-[1.01]">
+                <MessageFields
+                    message={form.message}
+                    handleChange={handleChange}
+                    error={errors.message}
+                />
+            </div>
 
             {/* Submit */}
             <button
                 type="submit"
                 disabled={status === 'loading'}
-                className="w-full bg-indigo-600 hover:bg-indigo-500 py-2 rounded-md text-white font-medium transition-colors"
+                className="
+            w-full py-3 rounded-xl text-white font-semibold
+            bg-linear-to-r from-indigo-600 to-purple-600
+            hover:from-indigo-500 hover:to-purple-500
+            disabled:opacity-60 disabled:cursor-not-allowed
+            transition-all duration-300 shadow-md
+            hover:shadow-lg hover:-translate-y-0.5
+        "
             >
                 {status === 'loading' ? 'Sending...' : 'Send Message'}
             </button>
 
+            {/* Status messages */}
             {status === 'success' && (
-                <p className="text-green-400 text-sm text-center mt-2">Message sent successfully!</p>
+                <p className="text-green-400 text-center mt-2 animate__animated animate__fadeIn">
+                    Message sent successfully!
+                </p>
             )}
+
             {status === 'error' && (
-                <p className="text-red-400 text-sm text-center mt-2">Something went wrong. Try again.</p>
+                <p className="text-red-400 text-center mt-2 animate__animated animate__fadeIn">
+                    Something went wrong. Try again.
+                </p>
             )}
         </form>
     );
