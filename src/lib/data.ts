@@ -25,20 +25,20 @@ export interface Education {
 }
 
 const PROFILE: Profile = {
-    name: 'Gokul Krishna G H',
-    title: 'MERN Stack Developer',
-    email: 'gokulkrishnagh@gmail.com',
-    phone: '+91 8848876169',
-    website: 'https://itsmegokul.site/',
-    photo: '/image/profile.png',
-    resume: '/resume/Gokul_Krishna_G_H__Resume.pdf', // drop the uploaded PDF into your public/static folder
+    name: import.meta.env.VITE_NAME || 'Your Name',
+    title: import.meta.env.VITE_TITLE || 'Full Stack Developer',
+    email: import.meta.env.VITE_EMAIL || 'email@example.com',
+    phone: import.meta.env.VITE_PHONE || '+1 234 567 890',
+    website: import.meta.env.VITE_WEBSITE || 'https://example.com',
+    photo: import.meta.env.VITE_PROFILE_IMAGE || 'https://via.placeholder.com/150',
+    resume: import.meta.env.VITE_RESUME_PATH || '/resume.pdf',
 
     // Socials
-    github: 'https://github.com/am-goku',
-    linkedin: 'https://www.linkedin.com/in/am-goku',
-    instagram: 'https://www.instagram.com/am_._goku/',
-    twitter: 'https://x.com/am_goku_',
-    facebook: 'https://www.facebook.com/am.goku',
+    github: import.meta.env.VITE_GITHUB_URL,
+    linkedin: import.meta.env.VITE_LINKEDIN_URL,
+    instagram: import.meta.env.VITE_INSTAGRAM_URL,
+    twitter: import.meta.env.VITE_TWITTER_URL,
+    facebook: import.meta.env.VITE_FACEBOOK_URL,
 };
 
 export const EDUCATION: Education[] = [

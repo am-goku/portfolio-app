@@ -7,18 +7,19 @@ import ResumeButton from './components/buttons/ResumeButton';
 import Socials from './components/Socials';
 import { getViews, increaseViews } from './lib/service/counter-api';
 import { FiEye, FiCopy, FiCheck } from 'react-icons/fi';
-import { FaHome, FaProjectDiagram, FaEnvelope } from 'react-icons/fa';
+import { FaHome, FaProjectDiagram, FaEnvelope, FaCodeBranch } from 'react-icons/fa';
 import BackToTopButton from './components/BackToTopButton';
 
 // Lazy load tab components for better performance
 const HomeTab = lazy(() => import('./components/tabs/HomeTab'));
 const ProjectsTab = lazy(() => import('./components/tabs/ProjectsTab'));
+const ActivityTab = lazy(() => import('./components/tabs/ActivityTab'));
 const ContactForm = lazy(() => import('./components/tabs/ContactForm'));
 
 export default function PortfolioApp() {
   const [viewers, setViewers] = useState<number | null>(null);
 
-  const [tab, setTab] = useState<'home' | 'projects' | 'testimonials' | 'contact'>('home');
+  const [tab, setTab] = useState<'home' | 'projects' | 'activity' | 'testimonials' | 'contact'>('home');
   const [emailCopied, setEmailCopied] = useState(false);
 
   const contentRef = useRef<HTMLDivElement | null>(null);
@@ -31,7 +32,7 @@ export default function PortfolioApp() {
   };
 
   // Scroll to top of content when changing tabs on mobile
-  const handleTabChange = (newTab: 'home' | 'projects' | 'contact') => {
+  const handleTabChange = (newTab: 'home' | 'projects' | 'activity' | 'contact') => {
     setTab(newTab);
     if (contentRef.current && window.innerWidth < 768) {
       contentRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -179,6 +180,7 @@ export default function PortfolioApp() {
           }>
             {tab === 'home' && <HomeTab />}
             {tab === 'projects' && <ProjectsTab />}
+            {tab === 'activity' && <ActivityTab />}
             {tab === 'contact' && <ContactForm />}
           </Suspense>
         </motion.main>
@@ -222,6 +224,15 @@ export default function PortfolioApp() {
           >
             <FaProjectDiagram className="text-lg" />
             <span className="text-xs">Projects</span>
+          </button>
+          <button
+            onClick={() => handleTabChange('activity')}
+            className={`flex flex-col items-center gap-1 px-3 py-2 rounded-lg transition-colors ${tab === 'activity' ? 'text-blue-400' : 'text-gray-400'
+              }`}
+            aria-label="Activity"
+          >
+            <FaCodeBranch className="text-lg" />
+            <span className="text-xs">Activity</span>
           </button>
           <button
             onClick={() => handleTabChange('contact')}
