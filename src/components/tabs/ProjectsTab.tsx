@@ -6,6 +6,7 @@ import ProjectCard from "../ProjectCard"
 function ProjectsTab() {
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
     const [showAllTags, setShowAllTags] = useState(false);
+    const [expandedCardId, setExpandedCardId] = useState<string | null>(null);
 
     // Extract all unique technologies from projects
     const allTags = useMemo(() => {
@@ -127,7 +128,11 @@ function ProjectsTab() {
                                 exit={{ opacity: 0, y: -30 }}
                                 transition={{ duration: 0.5, delay: index * 0.1 }}
                             >
-                                <ProjectCard project={p} />
+                                <ProjectCard
+                                    project={p}
+                                    isExpanded={expandedCardId === p.id}
+                                    onToggleExpand={() => setExpandedCardId(expandedCardId === p.id ? null : p.id)}
+                                />
                             </motion.div>
                         ))
                     ) : (

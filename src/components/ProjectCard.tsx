@@ -1,9 +1,16 @@
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
+import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
 import type { Project } from '../lib/projects';
 import RepoLinks from './buttons/RepoButton';
 
-export default function ProjectCard({ project }: { project: Project }) {
+interface ProjectCardProps {
+  project: Project;
+  isExpanded: boolean;
+  onToggleExpand: () => void;
+}
+
+export default function ProjectCard({ project, isExpanded, onToggleExpand }: ProjectCardProps) {
   const [isTouch, setIsTouch] = useState(false);
   const [showOverlay, setShowOverlay] = useState(false);
 
@@ -55,7 +62,7 @@ export default function ProjectCard({ project }: { project: Project }) {
       <div className="p-5 flex flex-col grow">
         <div className="flex items-start justify-between">
           <div>
-            <h3 className="text-lg font-semibold text-gray-100 group-hover:text-indigo-400 transition-colors">
+            <h3 className="text-lg font-semibold text-gray-100 group-hover:text-indigo-400 transition-colors truncate">
               {project.title}
             </h3>
             <div className="text-xs text-gray-400 mt-1">
@@ -63,26 +70,61 @@ export default function ProjectCard({ project }: { project: Project }) {
               {project.tech.length > 3 ? ' • …' : ''}
             </div>
           </div>
-          <span className="text-xs text-gray-500 whitespace-nowrap">
-            {project.repos.length} repo(s)
-          </span>
         </div>
 
-        <p className="text-sm text-gray-300 mt-3 leading-relaxed grow line-clamp-3">
+        <p className={`text-sm text-gray-300 mt-3 leading-relaxed grow ${!isExpanded ? 'line-clamp-2' : ''}`}>
           {project.description}
         </p>
 
         {/* Tags */}
         <div className="flex flex-wrap gap-2 mt-4">
-          {project.tech.slice(0, 5).map((tech, i) => (
-            <span
-              key={i}
-              className="text-xs px-2 py-1 bg-white/5 border border-white/10 rounded-md text-gray-300"
-            >
-              {tech}
-            </span>
-          ))}
+          <AnimatePresence mode="sync">
+            {(isExpanded ? project.tech : project.tech.slice(0, 3)).map((tech) => (
+              <motion.span
+                key={tech}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.15 }}
+                className="text-xs px-2 py-1 bg-white/5 border border-white/10 rounded-md text-gray-300"
+              >
+                {tech}
+              </motion.span>
+            ))}
+            {!isExpanded && project.tech.length > 3 && (
+              <motion.span
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.15 }}
+                className="text-xs px-2 py-1 bg-blue-600/20 border border-blue-500/30 rounded-md text-blue-400"
+              >
+                +{project.tech.length - 3}
+              </motion.span>
+            )}
+          </AnimatePresence>
         </div>
+
+        {/* Expand/Collapse Button */}
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            onToggleExpand();
+          }}
+          className="mt-4 flex items-center gap-1 cursor-pointer text-xs text-blue-400 hover:text-blue-300 transition-colors self-start"
+        >
+          {isExpanded ? (
+            <>
+              <FiChevronUp className="w-3.5 h-3.5" />
+              Show Less
+            </>
+          ) : (
+            <>
+              <FiChevronDown className="w-3.5 h-3.5" />
+              Show More
+            </>
+          )}
+        </button>
       </div>
     </motion.article>
   );
