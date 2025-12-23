@@ -8,21 +8,35 @@ function HomeTab() {
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}>
                 <h2 className="text-3xl font-semibold mb-2">Hello — I'm {PROFILE.name}</h2>
                 <p className="text-gray-200 max-w-3xl leading-7">
-                    Dynamic Full‑Stack Developer focused on building scalable, high‑performance web
-                    applications using the MERN stack, NestJS and modern frontend frameworks. I design clean,
-                    maintainable code and ship reliable products — from prototyping to production.
+                    I'm a full-stack developer who gets excited about building things that actually work.
+                    Whether it's a real-time chat app or a complex e-commerce platform, I love turning
+                    messy problems into clean, elegant solutions using the MERN stack, NestJS, and modern
+                    frontend frameworks.
+                </p>
+                <p className="text-gray-300 max-w-3xl leading-7 mt-3">
+                    What drives me? Creating products that people enjoy using — from the first prototype
+                    to the final deploy. I believe great software is built at the intersection of clean
+                    code and user empathy.
                 </p>
 
-                <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* Personal Quote */}
+                <div className="mt-6 p-4 bg-linear-to-r from-blue-500/10 to-purple-500/10 border-l-4 border-blue-500 rounded-r-lg">
+                    <p className="text-sm text-gray-300 italic">
+                        "I believe the best code is code that solves real problems elegantly. When I'm not coding,
+                        you'll find me exploring new tech stacks or contributing to open source."
+                    </p>
+                </div>
+
+                <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
                     <motion.div
                         whileHover={{ scale: 1.02 }}
                         className="p-4 rounded-lg bg-linear-to-br from-white/5 to-white/2 border border-white/10 hover:border-blue-500/50 hover:-translate-y-1 transition-all duration-300 will-change-transform"
                     >
                         <div className="flex items-center gap-2 mb-2">
                             <FaRocket className="text-blue-400" />
-                            <h4 className="font-medium">Current Focus</h4>
+                            <h4 className="font-medium">Currently Working On</h4>
                         </div>
-                        <p className="text-sm text-gray-300 mt-2">Building real‑time and production‑ready apps, microservices and APIs. Improving observability and automated deployments.</p>
+                        <p className="text-sm text-gray-300 mt-2">Building real-time systems and microservices. There's something satisfying about watching data flow seamlessly across distributed services. Also improving observability and automated deployments.</p>
                     </motion.div>
 
                     <motion.div
@@ -31,9 +45,9 @@ function HomeTab() {
                     >
                         <div className="flex items-center gap-2 mb-2">
                             <FaTools className="text-purple-400" />
-                            <h4 className="font-medium">Tools & Practice</h4>
+                            <h4 className="font-medium">My Daily Toolkit</h4>
                         </div>
-                        <p className="text-sm text-gray-300 mt-2">Docker, AWS, Redis, RabbitMQ, CI/CD, TDD where appropriate, and fast iteration using Agile processes.</p>
+                        <p className="text-sm text-gray-300 mt-2">Docker for containerization, AWS for cloud infrastructure, Redis for caching, RabbitMQ for messaging, CI/CD pipelines, and TDD when it makes sense. Always iterating fast with Agile processes.</p>
                     </motion.div>
                 </div>
 
