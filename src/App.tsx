@@ -92,10 +92,11 @@ export default function PortfolioApp() {
               <img
                 src={PROFILE.photo}
                 alt={`${PROFILE.name} - ${PROFILE.title}`}
+                draggable={false}
                 width="144"
                 height="144"
                 fetchPriority="high"
-                className="object-cover w-full h-full"
+                className="object-cover w-full h-full block"
               />
             </div>
             <h1 className="text-2xl font-semibold">{PROFILE.name}</h1>
