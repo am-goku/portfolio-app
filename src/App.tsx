@@ -6,8 +6,9 @@ import TabSwitchButtons from './components/buttons/TabSwitchButtons';
 import ResumeButton from './components/buttons/ResumeButton';
 import Socials from './components/Socials';
 import { getViews, increaseViews } from './lib/service/counter-api';
-import { FiEye } from 'react-icons/fi';
+import { FiEye, FiCopy, FiCheck } from 'react-icons/fi';
 import { FaHome, FaProjectDiagram, FaEnvelope } from 'react-icons/fa';
+import BackToTopButton from './components/BackToTopButton';
 
 // Lazy load tab components for better performance
 const HomeTab = lazy(() => import('./components/tabs/HomeTab'));
@@ -18,6 +19,7 @@ export default function PortfolioApp() {
   const [viewers, setViewers] = useState<number | null>(null);
 
   const [tab, setTab] = useState<'home' | 'projects' | 'testimonials' | 'contact'>('home');
+  const [emailCopied, setEmailCopied] = useState(false);
 
   const contentRef = useRef<HTMLDivElement | null>(null);
 
@@ -33,6 +35,26 @@ export default function PortfolioApp() {
     setTab(newTab);
     if (contentRef.current && window.innerWidth < 768) {
       contentRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  // Copy email to clipboard
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(PROFILE.email);
+      setEmailCopied(true);
+      setTimeout(() => setEmailCopied(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy email:', err);
+      // Fallback for older browsers
+      const textArea = document.createElement('textarea');
+      textArea.value = PROFILE.email;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      setEmailCopied(true);
+      setTimeout(() => setEmailCopied(false), 2000);
     }
   };
 
@@ -83,13 +105,27 @@ export default function PortfolioApp() {
             <div className="mt-6 w-full text-left">
               <h3 className="text-sm text-gray-200 font-medium">Contact</h3>
               <div className="text-xs text-gray-300 mt-1 flex flex-col gap-1">
-                <a
-                  href={`mailto:${PROFILE.email}`}
-                  className="hover:text-blue-400 transition-colors flex items-center gap-1"
-                  title="Send me an email"
-                >
-                  📧 {PROFILE.email}
-                </a>
+                <div className="flex items-center justify-between gap-2">
+                  <a
+                    href={`mailto:${PROFILE.email}`}
+                    className="hover:text-blue-400 transition-colors flex items-center gap-1"
+                    title="Send me an email"
+                  >
+                    📧 {PROFILE.email}
+                  </a>
+                  <button
+                    onClick={copyEmail}
+                    className="p-1.5 rounded hover:bg-white/10 transition-colors group"
+                    title={emailCopied ? "Copied!" : "Copy email"}
+                    aria-label="Copy email to clipboard"
+                  >
+                    {emailCopied ? (
+                      <FiCheck className="w-3.5 h-3.5 text-green-400" />
+                    ) : (
+                      <FiCopy className="w-3.5 h-3.5 text-gray-400 group-hover:text-blue-400" />
+                    )}
+                  </button>
+                </div>
                 <a
                   href={`tel:${PROFILE.phone}`}
                   className="hover:text-blue-400 transition-colors flex items-center gap-1"
@@ -198,6 +234,9 @@ export default function PortfolioApp() {
           </button>
         </div>
       </div>
+
+      {/* Back to Top Button */}
+      <BackToTopButton />
     </div>
   );
 }

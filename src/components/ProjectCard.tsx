@@ -23,8 +23,11 @@ export default function ProjectCard({ project }: { project: Project }) {
 
   return (
     <motion.article
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
       whileHover={!isTouch ? { scale: 1.03 } : {}}
-      transition={{ type: 'spring', stiffness: 200, damping: 15 }}
       className="group relative rounded-xl overflow-hidden shadow-lg border border-white/10 bg-linear-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-md hover:shadow-2xl hover:border-indigo-500/40 transition-all duration-300 flex flex-col"
       onClick={handleToggleOverlay}
     >

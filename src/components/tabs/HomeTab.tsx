@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import PROFILE, { EDUCATION } from '../../lib/data'
 import { FaGraduationCap, FaLaptopCode, FaBookOpen, FaRocket, FaTools } from 'react-icons/fa';
+import StatsCounter from '../StatsCounter';
 
 function HomeTab() {
     return (
@@ -26,6 +27,9 @@ function HomeTab() {
                         you'll find me exploring new tech stacks or contributing to open source."
                     </p>
                 </div>
+
+                {/* Stats Counter */}
+                <StatsCounter projects={50} commits={1000} years={3} />
 
                 <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
                     <motion.div

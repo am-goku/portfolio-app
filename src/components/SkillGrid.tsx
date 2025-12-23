@@ -16,17 +16,17 @@ export default function SkillsGrid() {
           const isActive = activeCategory === category.id;
           return (
             <div key={category.id} className="flex flex-col items-center gap-1">
-            <button
-              onClick={() => setActiveCategory(category.id)}
-              className={`p-3 rounded-lg transition-all ${isActive
-                ? 'bg-blue-600 text-white shadow-lg scale-110'
-                : 'bg-white/5 text-gray-300 hover:bg-white/10 hover:scale-105'
-                }`}
-              title={category.name}
-              aria-label={category.name}
-            >
-              <Icon className="text-xl" />
-            </button>
+              <button
+                onClick={() => setActiveCategory(category.id)}
+                className={`p-3 rounded-lg transition-all ${isActive
+                  ? 'bg-blue-600 text-white shadow-lg scale-110'
+                  : 'bg-white/5 text-gray-300 hover:bg-white/10 hover:scale-105'
+                  }`}
+                title={category.name}
+                aria-label={category.name}
+              >
+                <Icon className="text-xl" />
+              </button>
               {/* Show name on mobile or when active */}
               {
                 isActive && (
@@ -53,9 +53,12 @@ export default function SkillsGrid() {
         transition={{ duration: 0.3 }}
         className="grid grid-cols-3 sm:grid-cols-4 gap-3"
       >
-        {currentCategory?.skills.map(({ name, icon: Icon }) => (
+        {currentCategory?.skills.map(({ name, icon: Icon }, index) => (
           <motion.div
             key={name}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3, delay: index * 0.05 }}
             whileHover={{ scale: 1.05 }}
             className="flex flex-col items-center justify-center bg-white/5 hover:bg-white/10 transition-all p-3 rounded-lg text-center shadow-sm border border-white/10"
           >
