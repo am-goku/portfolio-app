@@ -16,7 +16,7 @@ function HomeTab() {
                 <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
                     <motion.div
                         whileHover={{ scale: 1.02 }}
-                        className="p-4 rounded-lg bg-linear-to-br from-white/5 to-white/2 border border-white/10 hover:border-white/20 transition-[border-color] duration-200 will-change-transform"
+                        className="p-4 rounded-lg bg-linear-to-br from-white/5 to-white/2 border border-white/10 hover:border-blue-500/50 hover:-translate-y-1 transition-all duration-300 will-change-transform"
                     >
                         <div className="flex items-center gap-2 mb-2">
                             <FaRocket className="text-blue-400" />
@@ -27,7 +27,7 @@ function HomeTab() {
 
                     <motion.div
                         whileHover={{ scale: 1.02 }}
-                        className="p-4 rounded-lg bg-linear-to-br from-white/5 to-white/2 border border-white/10 hover:border-white/20 transition-[border-color] duration-200 will-change-transform"
+                        className="p-4 rounded-lg bg-linear-to-br from-white/5 to-white/2 border border-white/10 hover:border-purple-500/50 hover:-translate-y-1 transition-all duration-300 will-change-transform"
                     >
                         <div className="flex items-center gap-2 mb-2">
                             <FaTools className="text-purple-400" />
@@ -55,7 +55,7 @@ function HomeTab() {
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: 0.3 + (index * 0.2), duration: 0.5 }}
                                 whileHover={{ scale: 1.02 }}
-                                className="relative p-5 rounded-lg bg-linear-to-br from-white/5 to-white/2 border border-white/10 hover:border-white/20 transition-[border-color] duration-200 will-change-transform group"
+                                className="relative p-5 rounded-lg bg-linear-to-br from-white/5 to-white/2 border border-white/10 hover:border-purple-500/50 hover:-translate-y-1 transition-all duration-300 will-change-transform group"
                             >
                                 {/* Timeline dot */}
                                 <div className={`absolute -left-8 top-6 w-8 h-8 rounded-full bg-linear-to-br ${edu.color === 'blue' ? 'from-blue-500 to-purple-600' : 'from-purple-500 to-pink-600'

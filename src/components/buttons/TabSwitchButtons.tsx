@@ -10,25 +10,28 @@ function TabSwitchButtons({ setTab, tab }: Props) {
         <div className="flex gap-3">
             <button
                 onClick={() => setTab('home')}
-                className={`px-4 py-2 rounded-full text-sm ${tab === 'home' ? 'bg-indigo-600' : 'bg-white/5'}`}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${tab === 'home'
+                        ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30'
+                        : 'bg-white/5 text-gray-300 hover:bg-white/10 hover:text-white'
+                    }`}
             >
                 Home
             </button>
             <button
                 onClick={() => setTab('projects')}
-                className={`px-4 py-2 rounded-full text-sm ${tab === 'projects' ? 'bg-indigo-600' : 'bg-white/5'}`}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${tab === 'projects'
+                        ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30'
+                        : 'bg-white/5 text-gray-300 hover:bg-white/10 hover:text-white'
+                    }`}
             >
                 Projects
             </button>
-            {/* <button
-                onClick={() => setTab('testimonials')}
-                className={`px-4 py-2 rounded-full text-sm ${tab === 'testimonials' ? 'bg-indigo-600' : 'bg-white/5'}`}
-            >
-                Testimonials
-            </button> */}
             <button
                 onClick={() => setTab('contact')}
-                className={`px-4 py-2 rounded-full text-sm ${tab === 'contact' ? 'bg-indigo-600' : 'bg-white/5'}`}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${tab === 'contact'
+                        ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30'
+                        : 'bg-white/5 text-gray-300 hover:bg-white/10 hover:text-white'
+                    }`}
             >
                 Contact
             </button>

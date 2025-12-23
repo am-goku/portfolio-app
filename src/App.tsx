@@ -7,11 +7,11 @@ import ResumeButton from './components/buttons/ResumeButton';
 import Socials from './components/Socials';
 import { getViews, increaseViews } from './lib/service/counter-api';
 import { FiEye } from 'react-icons/fi';
+import { FaHome, FaProjectDiagram, FaEnvelope } from 'react-icons/fa';
 
 // Lazy load tab components for better performance
 const HomeTab = lazy(() => import('./components/tabs/HomeTab'));
 const ProjectsTab = lazy(() => import('./components/tabs/ProjectsTab'));
-const TestimonialsTab = lazy(() => import('./components/tabs/TestimonialsTab'));
 const ContactForm = lazy(() => import('./components/tabs/ContactForm'));
 
 export default function PortfolioApp() {
@@ -24,6 +24,14 @@ export default function PortfolioApp() {
   const scrollToProjects = () => {
     setTab('projects');
     if (contentRef.current) {
+      contentRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  // Scroll to top of content when changing tabs on mobile
+  const handleTabChange = (newTab: 'home' | 'projects' | 'contact') => {
+    setTab(newTab);
+    if (contentRef.current && window.innerWidth < 768) {
       contentRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
@@ -74,13 +82,28 @@ export default function PortfolioApp() {
 
             <div className="mt-6 w-full text-left">
               <h3 className="text-sm text-gray-200 font-medium">Contact</h3>
-              <p className="text-xs text-gray-300 mt-1">{PROFILE.email} • {PROFILE.phone}</p>
+              <div className="text-xs text-gray-300 mt-1 flex flex-col gap-1">
+                <a
+                  href={`mailto:${PROFILE.email}`}
+                  className="hover:text-blue-400 transition-colors flex items-center gap-1"
+                  title="Send me an email"
+                >
+                  📧 {PROFILE.email}
+                </a>
+                <a
+                  href={`tel:${PROFILE.phone}`}
+                  className="hover:text-blue-400 transition-colors flex items-center gap-1"
+                  title="Call me"
+                >
+                  📞 {PROFILE.phone}
+                </a>
+              </div>
 
-              <div className="mt-4 flex gap-3">
+              <div className="mt-5 flex gap-3">
                 <ResumeButton resume={PROFILE.resume} />
                 <button
                   onClick={scrollToProjects}
-                  className="px-4 py-2 rounded-md border border-white/10 text-sm hover:border-white/20 transition-colors"
+                  className="flex-1 px-4 py-2 rounded-md border border-white/20 bg-white/5 text-sm hover:bg-white/10 hover:border-white/30 transition-all"
                   aria-label="Navigate to projects section"
                 >
                   View Projects
@@ -105,11 +128,11 @@ export default function PortfolioApp() {
           role="main"
           aria-label="Portfolio content"
         >
-          {/* Tabs */}
-          <div className="flex items-center justify-between mb-6">
+          {/* Tabs - Hidden on mobile, visible on desktop */}
+          <div className="hidden md:flex items-center justify-between mb-6">
             <TabSwitchButtons setTab={setTab} tab={tab} />
 
-            <div className="text-sm text-gray-300 hidden md:block">MERN • NestJS • Angular • Cloud & DevOps</div>
+            <div className="text-sm text-gray-300">MERN • NestJS • Angular • Cloud & DevOps</div>
           </div>
 
           {/* Content area */}
@@ -120,13 +143,17 @@ export default function PortfolioApp() {
           }>
             {tab === 'home' && <HomeTab />}
             {tab === 'projects' && <ProjectsTab />}
-            {tab === 'testimonials' && <TestimonialsTab />}
             {tab === 'contact' && <ContactForm />}
           </Suspense>
         </motion.main>
       </div>
 
-      <footer className="max-w-6xl mx-auto mt-10 text-center text-xs text-gray-500">© {new Date().getFullYear()} {PROFILE.name}</footer>
+      <footer className="max-w-6xl mx-auto mt-10 text-center text-xs text-gray-500 space-y-1">
+        <p>© {new Date().getFullYear()} {PROFILE.name}</p>
+        <p className="text-gray-600">
+          Built with <span className="text-blue-400">React</span>, <span className="text-blue-400">Vite</span>, <span className="text-blue-400">Tailwind</span> & ❤️
+        </p>
+      </footer>
       {viewers === null ? (
         <div className="absolute bottom-4 left-4 flex items-center gap-1">
           <div className="w-4 h-4 bg-gray-700 animate-pulse rounded" />
@@ -138,6 +165,39 @@ export default function PortfolioApp() {
           {viewers}
         </p>
       )}
+
+      {/* Mobile Sticky Navigation */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-gray-900/95 backdrop-blur-sm border-t border-white/10 z-50 px-4 py-2 safe-area-inset-bottom">
+        <div className="flex justify-around items-center max-w-md mx-auto">
+          <button
+            onClick={() => handleTabChange('home')}
+            className={`flex flex-col items-center gap-1 px-3 py-2 rounded-lg transition-colors ${tab === 'home' ? 'text-blue-400' : 'text-gray-400'
+              }`}
+            aria-label="Home"
+          >
+            <FaHome className="text-lg" />
+            <span className="text-xs">Home</span>
+          </button>
+          <button
+            onClick={() => handleTabChange('projects')}
+            className={`flex flex-col items-center gap-1 px-3 py-2 rounded-lg transition-colors ${tab === 'projects' ? 'text-blue-400' : 'text-gray-400'
+              }`}
+            aria-label="Projects"
+          >
+            <FaProjectDiagram className="text-lg" />
+            <span className="text-xs">Projects</span>
+          </button>
+          <button
+            onClick={() => handleTabChange('contact')}
+            className={`flex flex-col items-center gap-1 px-3 py-2 rounded-lg transition-colors ${tab === 'contact' ? 'text-blue-400' : 'text-gray-400'
+              }`}
+            aria-label="Contact"
+          >
+            <FaEnvelope className="text-lg" />
+            <span className="text-xs">Contact</span>
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

@@ -50,9 +50,9 @@ function ResumeButton({ resume, filename }: Props) {
         <button
             onClick={handleDownload}
             disabled={isLoading}
-            className={`flex items-center justify-center px-4 py-2 rounded-md shadow-md text-white text-sm transition-all ${isLoading
-                ? 'bg-indigo-400 cursor-not-allowed opacity-75'
-                : 'bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700'
+            className={`flex-1 flex items-center justify-center px-4 py-2 rounded-md shadow-md text-white text-sm transition-all ${isLoading
+                ? 'bg-blue-400 cursor-not-allowed opacity-75'
+                : 'bg-blue-600 hover:bg-blue-500 active:bg-blue-700'
                 }`}
         >
             {isLoading ? (

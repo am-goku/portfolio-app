@@ -65,7 +65,7 @@ export default function ProjectCard({ project }: { project: Project }) {
           </span>
         </div>
 
-        <p className="text-sm text-gray-300 mt-3 leading-relaxed grow">
+        <p className="text-sm text-gray-300 mt-3 leading-relaxed grow line-clamp-3">
           {project.description}
         </p>
 
