@@ -1,16 +1,18 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, lazy, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import PROFILE from './lib/data';
 import SkillsGrid from './components/SkillGrid';
-import TestimonialsTab from './components/tabs/TestimonialsTab';
-import ProjectsTab from './components/tabs/ProjectsTab';
-import HomeTab from './components/tabs/HomeTab';
 import TabSwitchButtons from './components/buttons/TabSwitchButtons';
 import ResumeButton from './components/buttons/ResumeButton';
 import Socials from './components/Socials';
-import ContactForm from './components/tabs/ContactForm';
 import { getViews, increaseViews } from './lib/service/counter-api';
 import { FiEye } from 'react-icons/fi';
+
+// Lazy load tab components for better performance
+const HomeTab = lazy(() => import('./components/tabs/HomeTab'));
+const ProjectsTab = lazy(() => import('./components/tabs/ProjectsTab'));
+const TestimonialsTab = lazy(() => import('./components/tabs/TestimonialsTab'));
+const ContactForm = lazy(() => import('./components/tabs/ContactForm'));
 
 export default function PortfolioApp() {
   const [viewers, setViewers] = useState<number | null>(null);
@@ -28,7 +30,7 @@ export default function PortfolioApp() {
 
   useEffect(() => {
     getViews().then(res => setViewers(res)).catch(() => setViewers(0));
-  }, [viewers]);
+  }, []); // Fixed: Removed viewers from dependency array to prevent infinite loop
 
   //Updating views
   useEffect(() => {
@@ -51,10 +53,19 @@ export default function PortfolioApp() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
           className="lg:col-span-1 bg-linear-to-br from-white/3 to-white/2/5 p-6 rounded-2xl shadow-2xl border border-white/6 backdrop-blur"
+          role="complementary"
+          aria-label="Profile information"
         >
           <div className="flex flex-col items-center text-center">
             <div className="w-36 h-36 rounded-full overflow-hidden ring-2 ring-white/10 mb-4">
-              <img src={PROFILE.photo} alt="Profile" loading='lazy' className="object-cover w-full h-full" />
+              <img
+                src={PROFILE.photo}
+                alt={`${PROFILE.name} - ${PROFILE.title}`}
+                width="144"
+                height="144"
+                fetchPriority="high"
+                className="object-cover w-full h-full"
+              />
             </div>
             <h1 className="text-2xl font-semibold">{PROFILE.name}</h1>
             <p className="text-sm text-gray-300 mt-1">{PROFILE.title}</p>
@@ -69,7 +80,8 @@ export default function PortfolioApp() {
                 <ResumeButton resume={PROFILE.resume} />
                 <button
                   onClick={scrollToProjects}
-                  className="px-4 py-2 rounded-md border border-white/10 text-sm"
+                  className="px-4 py-2 rounded-md border border-white/10 text-sm hover:border-white/20 transition-colors"
+                  aria-label="Navigate to projects section"
                 >
                   View Projects
                 </button>
@@ -90,6 +102,8 @@ export default function PortfolioApp() {
           transition={{ duration: 0.6 }}
           ref={contentRef}
           className="lg:col-span-2 bg-white/3 p-6 rounded-2xl shadow-2xl border border-white/6 backdrop-blur"
+          role="main"
+          aria-label="Portfolio content"
         >
           {/* Tabs */}
           <div className="flex items-center justify-between mb-6">
@@ -99,23 +113,31 @@ export default function PortfolioApp() {
           </div>
 
           {/* Content area */}
-          {tab === 'home' && <HomeTab />}
-
-          {tab === 'projects' && <ProjectsTab />}
-
-          {tab === 'testimonials' && <TestimonialsTab />}
-
-          {tab === 'contact' && <ContactForm />}
+          <Suspense fallback={
+            <div className="flex items-center justify-center py-20">
+              <div className="animate-pulse text-gray-400">Loading...</div>
+            </div>
+          }>
+            {tab === 'home' && <HomeTab />}
+            {tab === 'projects' && <ProjectsTab />}
+            {tab === 'testimonials' && <TestimonialsTab />}
+            {tab === 'contact' && <ContactForm />}
+          </Suspense>
         </motion.main>
       </div>
 
       <footer className="max-w-6xl mx-auto mt-10 text-center text-xs text-gray-500">© {new Date().getFullYear()} {PROFILE.name}</footer>
-      {viewers ? (
-        <p className='absolute bottom-4 left-4 text-xs text-gray-500 flex justify-center items-center gap-1'>
+      {viewers === null ? (
+        <div className="absolute bottom-4 left-4 flex items-center gap-1">
+          <div className="w-4 h-4 bg-gray-700 animate-pulse rounded" />
+          <div className="w-12 h-3 bg-gray-700 animate-pulse rounded" />
+        </div>
+      ) : (
+        <p className='absolute bottom-4 left-4 text-xs text-gray-500 flex items-center gap-1'>
           <FiEye />
           {viewers}
         </p>
-      ) : null}
+      )}
     </div>
   );
 }

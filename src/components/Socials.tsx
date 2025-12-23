@@ -6,7 +6,7 @@ import { Tooltip } from "react-tooltip";
 function LinkButton({ href, title, children }: { href: string; title: string; children: React.ReactNode }) {
     return (
         <React.Fragment>
-            <a href={href} target="_blank" rel="noreferrer"
+            <a href={href} target="_blank" rel="noopener noreferrer"
                 data-tooltip-id={title}
                 data-tooltip-content={title}>
                 {children}

@@ -1,4 +1,5 @@
 import React from 'react'
+import { FaUser } from 'react-icons/fa';
 
 type Props = {
     name?: string;
@@ -8,16 +9,21 @@ type Props = {
 
 function NameField({ name, handleChange, error }: Props) {
     return (
-        <div>
+        <div className="relative group">
+            <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-blue-400 transition-colors duration-200">
+                <FaUser />
+            </div>
             <input
                 type="text"
                 name="name"
                 placeholder="Your Name"
                 value={name}
                 onChange={handleChange}
-                className="w-full p-2 rounded-md bg-white/10 border border-white/20 text-gray-200 placeholder-gray-400"
+                className="w-full pl-12 pr-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 hover:bg-white/15"
             />
-            {error && <p className="text-red-400 text-xs mt-1">{error}</p>}
+            {error && <p className="text-red-400 text-sm mt-1 flex items-center gap-1">
+                <span>⚠</span> {error}
+            </p>}
         </div>
     )
 }

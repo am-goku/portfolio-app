@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { submitContactForm, validateContactForm, type ContactFormData } from '../../lib/service/contact';
 import PhoneField from '../fields/PhoneField';
 import EmailFields from '../fields/EmailFields';
 import NameField from '../fields/NameField';
 import MessageFields from '../fields/MessageFields';
+import { FaPaperPlane, FaSpinner, FaCheckCircle, FaExclamationCircle } from 'react-icons/fa';
 
 type Status = 'idle' | 'loading' | 'success' | 'error';
 
@@ -48,17 +50,23 @@ export default function ContactForm() {
     };
 
     return (
-        <form
+        <motion.form
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
             onSubmit={handleSubmit}
-            className="space-y-6 md:p-8 p-2
-            md:backdrop-blur-2xl md:bg-white/5
-               rounded-2xl 
-               animate__animated animate__fadeIn"
+            className="space-y-6 p-8 backdrop-blur-xl bg-white/5 rounded-2xl border border-white/10 shadow-2xl"
         >
-
-            <h2 className="text-2xl font-bold text-white mb-4 tracking-wide select-none">
-                Get in Touch
-            </h2>
+            {/* Enhanced Header */}
+            <div className="flex items-center gap-3 mb-6">
+                <div className="p-3 rounded-lg bg-linear-to-br from-blue-500 to-purple-600 shadow-lg">
+                    <FaPaperPlane className="text-white text-xl" />
+                </div>
+                <div>
+                    <h2 className="text-2xl font-bold text-white">Get in Touch</h2>
+                    <p className="text-sm text-gray-400">Let's start a conversation</p>
+                </div>
+            </div>
 
             {/* Name */}
             <div className="transform transition-all duration-300 hover:scale-[1.01]">
@@ -96,34 +104,49 @@ export default function ContactForm() {
                 />
             </div>
 
-            {/* Submit */}
-            <button
+            {/* Enhanced Submit Button */}
+            <motion.button
                 type="submit"
                 disabled={status === 'loading'}
-                className="
-            w-full py-3 rounded-xl text-white font-semibold
-            bg-linear-to-r from-indigo-600 to-purple-600
-            hover:from-indigo-500 hover:to-purple-500
-            disabled:opacity-60 disabled:cursor-not-allowed
-            transition-all duration-300 shadow-md
-            hover:shadow-lg hover:-translate-y-0.5
-        "
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="w-full py-4 rounded-xl text-white font-semibold bg-linear-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 disabled:opacity-60 disabled:cursor-not-allowed transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
             >
-                {status === 'loading' ? 'Sending...' : 'Send Message'}
-            </button>
+                {status === 'loading' ? (
+                    <>
+                        <FaSpinner className="animate-spin" />
+                        Sending...
+                    </>
+                ) : (
+                    <>
+                        <FaPaperPlane />
+                        Send Message
+                    </>
+                )}
+            </motion.button>
 
-            {/* Status messages */}
+            {/* Enhanced Status Messages */}
             {status === 'success' && (
-                <p className="text-green-400 text-center mt-2 animate__animated animate__fadeIn">
-                    Message sent successfully!
-                </p>
+                <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="p-4 rounded-lg bg-green-500/20 border border-green-500/50 flex items-center gap-3"
+                >
+                    <FaCheckCircle className="text-green-400 text-xl shrink-0" />
+                    <p className="text-green-400">Message sent successfully!</p>
+                </motion.div>
             )}
 
             {status === 'error' && (
-                <p className="text-red-400 text-center mt-2 animate__animated animate__fadeIn">
-                    Something went wrong. Try again.
-                </p>
+                <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="p-4 rounded-lg bg-red-500/20 border border-red-500/50 flex items-center gap-3"
+                >
+                    <FaExclamationCircle className="text-red-400 text-xl shrink-0" />
+                    <p className="text-red-400">Something went wrong. Try again.</p>
+                </motion.div>
             )}
-        </form>
+        </motion.form>
     );
 }

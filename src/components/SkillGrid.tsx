@@ -1,50 +1,74 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import SKILLS from '../lib/skills';
+import { motion } from 'framer-motion';
+import { SKILL_CATEGORIES } from '../lib/skills';
 
 export default function SkillsGrid() {
-  const [expanded, setExpanded] = useState(false);
+  const [activeCategory, setActiveCategory] = useState('frontend');
 
-  // how many items to show when collapsed
-  const visibleCount = 10;
-
-  const visibleSkills = expanded ? SKILLS : SKILLS.slice(0, visibleCount);
+  const currentCategory = SKILL_CATEGORIES.find(cat => cat.id === activeCategory);
 
   return (
     <div className="mt-4">
-      <motion.div
-        layout
-        className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3"
-      >
-        <AnimatePresence>
-          {visibleSkills.map(({ name, icon: Icon }) => (
-            <motion.div
-              key={name}
-              layout
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.2 }}
-              className="flex flex-col items-center justify-center bg-white/5 hover:bg-white/10 transition-all p-3 rounded-lg text-center shadow-sm"
+      {/* Category Icons - Icon-only for all devices */}
+      <div className="flex gap-3 mb-4 justify-center">
+        {SKILL_CATEGORIES.map(category => {
+          const Icon = category.icon;
+          const isActive = activeCategory === category.id;
+          return (
+            <div key={category.id} className="flex flex-col items-center gap-1">
+            <button
+              onClick={() => setActiveCategory(category.id)}
+              className={`p-3 rounded-lg transition-all ${isActive
+                ? 'bg-blue-600 text-white shadow-lg scale-110'
+                : 'bg-white/5 text-gray-300 hover:bg-white/10 hover:scale-105'
+                }`}
+              title={category.name}
+              aria-label={category.name}
             >
-              <Icon className="text-3xl text-indigo-400 mb-2" />
-              <span className="text-xs text-gray-200">{name}</span>
-            </motion.div>
-          ))}
-        </AnimatePresence>
+              <Icon className="text-xl" />
+            </button>
+              {/* Show name on mobile or when active */}
+              {
+                isActive && (
+                  <span className="text-xs transition-colors text-blue-400 font-medium">
+                    {category.name}
+                  </span>
+                )
+              }
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Category Description */}
+      <p className="text-xs text-gray-400 mb-4 italic text-center">
+        {currentCategory?.description}
+      </p>
+
+      {/* Skills Grid */}
+      <motion.div
+        key={activeCategory}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+        className="grid grid-cols-3 sm:grid-cols-4 gap-3"
+      >
+        {currentCategory?.skills.map(({ name, icon: Icon }) => (
+          <motion.div
+            key={name}
+            whileHover={{ scale: 1.05 }}
+            className="flex flex-col items-center justify-center bg-white/5 hover:bg-white/10 transition-all p-3 rounded-lg text-center shadow-sm border border-white/10"
+          >
+            <Icon className="text-3xl text-blue-400 mb-2" />
+            <span className="text-xs text-gray-200">{name}</span>
+          </motion.div>
+        ))}
       </motion.div>
 
-      {/* Expand/Collapse Button */}
-      {SKILLS.length > visibleCount && (
-        <div className="flex justify-center mt-4">
-          <button
-            onClick={() => setExpanded(!expanded)}
-            className="text-sm text-indigo-400 hover:text-indigo-300 transition-colors underline underline-offset-4"
-          >
-            {expanded ? 'Show Less ▲' : 'Show More ▼'}
-          </button>
-        </div>
-      )}
+      {/* Skill Count */}
+      <p className="text-xs text-gray-500 mt-3 text-center">
+        {currentCategory?.skills.length} skills
+      </p>
     </div>
   );
 }
