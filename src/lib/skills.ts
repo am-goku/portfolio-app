@@ -11,6 +11,8 @@ import {
   FaServer,
   FaDatabase,
   FaTools,
+  FaPython,
+  FaVuejs,
 } from 'react-icons/fa';
 import {
   SiNextdotjs,
@@ -24,13 +26,13 @@ import {
   SiFirebase,
   SiPostman,
   SiGithub,
-  SiRedux,
   SiRedis,
   SiExpress,
   SiPostgresql,
   SiFigma,
   SiLinux,
   SiBootstrap,
+  SiKubernetes,
 } from 'react-icons/si';
 
 export interface Skill {
@@ -56,9 +58,9 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
       { name: 'React', icon: FaReact },
       { name: 'Next.js', icon: SiNextdotjs },
       { name: 'Angular', icon: SiAngular },
+      {name: 'Vue.js', icon: FaVuejs},
       { name: 'TailwindCSS', icon: SiTailwindcss },
       { name: 'Bootstrap', icon: SiBootstrap },
-      { name: 'Redux', icon: SiRedux },
       { name: 'HTML5', icon: FaHtml5 },
       { name: 'CSS3', icon: FaCss3Alt },
     ]
@@ -75,6 +77,8 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
       { name: 'Socket.IO', icon: SiSocketdotio },
       { name: 'TypeScript', icon: SiTypescript },
       { name: 'JavaScript', icon: SiJavascript },
+      { name: 'Python', icon: FaPython },
+      {name: 'RabbitMQ', icon: FaServer}
     ]
   },
   {
@@ -102,6 +106,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
       { name: 'Postman', icon: SiPostman },
       { name: 'Figma', icon: SiFigma },
       { name: 'Linux', icon: SiLinux },
+      {name: 'Kubernetes', icon: SiKubernetes}
     ]
   }
 ];
