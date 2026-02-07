@@ -8,6 +8,7 @@ import { getViews, increaseViews } from './lib/service/counter-api';
 import { FiEye, FiCopy, FiCheck } from 'react-icons/fi';
 import { FaHome, FaProjectDiagram, FaEnvelope, FaCodeBranch } from 'react-icons/fa';
 import BackToTopButton from './components/BackToTopButton';
+import SparkleBackground from './components/SparkleBackground';
 
 // Lazy load tab components for better performance
 const HomeTab = lazy(() => import('./components/tabs/HomeTab'));
@@ -76,6 +77,8 @@ export default function PortfolioApp() {
 
   return (
     <div className="min-h-screen relative bg-linear-to-b from-gray-900 via-gray-950 to-black text-gray-100 p-6">
+      {/* Sparkle cursor effect background */}
+      <SparkleBackground />
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Left column: profile card */}
         <motion.aside
