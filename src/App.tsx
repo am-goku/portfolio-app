@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import PROFILE from './lib/data';
 import SkillsGrid from './components/SkillGrid';
 import TabSwitchButtons from './components/buttons/TabSwitchButtons';
-import ResumeButton from './components/buttons/ResumeButton';
 import Socials from './components/Socials';
 import { getViews, increaseViews } from './lib/service/counter-api';
 import { FiEye, FiCopy, FiCheck } from 'react-icons/fi';
@@ -138,7 +137,6 @@ export default function PortfolioApp() {
               </div>
 
               <div className="mt-5 flex gap-3">
-                <ResumeButton resume={PROFILE.resume} />
                 <button
                   onClick={scrollToProjects}
                   className="flex-1 px-4 py-2 rounded-md border border-white/20 bg-white/5 text-sm hover:bg-white/10 hover:border-white/30 transition-all"
@@ -189,9 +187,9 @@ export default function PortfolioApp() {
 
       <footer className="max-w-6xl mx-auto mt-10 text-center text-xs text-gray-500 space-y-1">
         <p>© {new Date().getFullYear()} {PROFILE.name}</p>
-        <p className="text-gray-600">
-          Built with <span className="text-blue-400">React</span>, <span className="text-blue-400">Vite</span>, <span className="text-blue-400">Tailwind</span> & ❤️
-        </p>
+        {/* <p className="text-gray-600">
+          Built with <span className="text-blue-400">React</span>, <span className="text-blue-400">Vite</span>, <span className="text-blue-400">Tailwind</span>
+        </p> */}
       </footer>
       {viewers === null ? (
         <div className="absolute bottom-4 left-4 flex items-center gap-1">
