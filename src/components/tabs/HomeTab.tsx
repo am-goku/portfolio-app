@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import PROFILE, { EDUCATION } from '../../lib/data'
-import { FaGraduationCap, FaLaptopCode, FaBookOpen, FaRocket, FaTools } from 'react-icons/fa';
+import { FaGraduationCap, FaLaptopCode, FaBookOpen, FaRocket, FaTools, FaCertificate } from 'react-icons/fa';
 
 function HomeTab() {
     return (
@@ -55,7 +55,7 @@ function HomeTab() {
                 <div className="mt-8">
                     <div className="flex items-center gap-2 mb-6">
                         <FaBookOpen className="text-xl text-blue-400" />
-                        <h4 className="font-medium text-lg">Education & Training</h4>
+                        <h4 className="font-medium text-lg">Education & Certification</h4>
                     </div>
 
                     <div className="relative space-y-6 pl-8">
@@ -77,6 +77,8 @@ function HomeTab() {
                                     } flex items-center justify-center ring-4 ring-gray-900/50`}>
                                     {edu.type === 'training' ? (
                                         <FaLaptopCode className="text-white text-sm" />
+                                    ) : edu.type === 'certification' ? (
+                                        <FaCertificate className="text-white text-sm" />
                                     ) : (
                                         <FaGraduationCap className="text-white text-sm" />
                                     )}

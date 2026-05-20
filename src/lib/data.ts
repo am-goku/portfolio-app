@@ -20,7 +20,7 @@ export interface Education {
     institution: string;
     program: string;
     duration: string;
-    type: 'training' | 'education';
+    type: 'training' | 'education' | 'certification';
     color: 'blue' | 'purple';
 }
 
@@ -42,6 +42,22 @@ const PROFILE: Profile = {
 };
 
 export const EDUCATION: Education[] = [
+    {
+        id: 'ibm-fullstack-engineer',
+        institution: 'IBM (Coursera)',
+        program: 'IBM Full Stack Software Engineer Professional Certificate',
+        duration: '2025',
+        type: 'certification',
+        color: 'blue'
+    },
+    {
+        id: 'ibm-fullstack-js',
+        institution: 'IBM (Coursera)',
+        program: 'IBM Full Stack JavaScript Developer Professional Certificate',
+        duration: '2025',
+        type: 'certification',
+        color: 'purple'
+    },
     {
         id: 'brototype',
         institution: 'Brototype',

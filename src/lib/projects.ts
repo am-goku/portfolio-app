@@ -5,9 +5,9 @@ export interface Project {
     description: string;
     thumbnail: string;
     live: string | null;
-    repos: { 
+    repos: {
         label: string; // e.g., 'Frontend', 'Backend', 'Monorepo'
-        url: string 
+        url: string
     }[];
     tech: string[];
 }
@@ -20,7 +20,7 @@ const PROJECTS: Project[] = [
         description:
             'Next.js-based social platform with real-time chat, Google OAuth, image uploads and AWS deployment. Built with NextAuth, Socket.IO and Firebase for media.',
         thumbnail: '/thumbs/relink.svg',
-        live: 'https://relink.itsmegokul.site',
+        live: null,
         repos: [
             { label: 'Monorepo', url: 'https://github.com/am-goku/RELINK-NEXTJS' }
         ],
@@ -33,7 +33,7 @@ const PROJECTS: Project[] = [
         description:
             'Secure e-commerce solution with admin dashboard, Twilio OTP, and RazorPay payments. Admin panel built using Angular.',
         thumbnail: '/thumbs/github.png',
-        live: 'https://trendly.itsmegokul.site',
+        live: null,
         repos: [{ label: 'Repo', url: 'https://github.com/am-goku/trendly' }],
         tech: ['Express', 'Node.js', 'MongoDB', 'RazorPay', 'Twilio', 'AWS', 'MERN']
     },

@@ -130,13 +130,13 @@ export default function PortfolioApp() {
                     )}
                   </button>
                 </div>
-                <a
+                {/* <a
                   href={`tel:${PROFILE.phone}`}
                   className="hover:text-blue-400 transition-colors flex items-center gap-1"
                   title="Call me"
                 >
                   📞 {PROFILE.phone}
-                </a>
+                </a> */}
               </div>
 
               <div className="mt-5 flex gap-3">
