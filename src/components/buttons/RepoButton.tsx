@@ -23,7 +23,7 @@ export default function RepoLinks({ repos, live }: { repos: Project['repos']; li
         <a
           href={live}
           target="_blank"
-          rel="noreferrer"
+          rel="noopener noreferrer"
           className="px-4 py-2 rounded-md bg-emerald-600 hover:bg-emerald-500 text-sm text-white shadow-lg transition-colors"
         >
           Live Demo
@@ -35,7 +35,7 @@ export default function RepoLinks({ repos, live }: { repos: Project['repos']; li
         <a
           href={repos[0].url}
           target="_blank"
-          rel="noreferrer"
+          rel="noopener noreferrer"
           className="px-4 py-2 rounded-md bg-gray-700 hover:bg-gray-600 text-sm text-white shadow-lg transition-colors"
         >
           GitHub Repo
@@ -66,7 +66,7 @@ export default function RepoLinks({ repos, live }: { repos: Project['repos']; li
                   key={i}
                   href={r.url}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-700 rounded-md transition-colors"
                   onClick={() => setOpen(false)}
                 >

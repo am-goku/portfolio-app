@@ -42,7 +42,8 @@ export default function ProjectCard({ project, isExpanded, onToggleExpand }: Pro
       <div className="relative w-full h-48 md:h-56 overflow-hidden bg-gray-800">
         <img
           src={project.thumbnail || '/thumb/github.png'}
-          alt={project.title}
+          alt={`${project.title} — project screenshot`}
+          loading="lazy"
           className="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-500"
         />
 

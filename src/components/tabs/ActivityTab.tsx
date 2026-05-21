@@ -73,7 +73,8 @@ export default function ActivityTab() {
                     <div className="overflow-x-auto pb-2">
                         <img
                             src="https://ghchart.rshah.org/2196F3/am-goku"
-                            alt="GitHub Contributions"
+                            alt="GitHub Contributions chart for am-goku"
+                            loading="lazy"
                             className="w-full min-w-[600px]"
                         />
                     </div>

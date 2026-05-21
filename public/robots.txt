@@ -1,0 +1,6 @@
+# Robots.txt for Gokul Krishna G H Portfolio
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://gokul-krishna.vercel.app/sitemap.xml
